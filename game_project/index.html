@@ -18,11 +18,11 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
 
-    game.load.image('sky', 'assets/sky.png');
+    game.load.image('sky', 'assets/bg.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-    game.load.spritesheet('testing', 'assets/testing.png', 34, 34);
+    game.load.spritesheet('green', 'assets/green.png', 36, 49);
+    game.load.spritesheet('blue', 'assets/blue.png', 36.5, 49);
 
 
 }
@@ -37,13 +37,14 @@ var stars;
 var score = 0;
 var scoreText;
 
-function createPlayer(name,arrayleft,arrayright) {
+function createPlayer(name,arrayleft,arrayright, startingPosition) {
     //  Our two animations, walking left and right.
     var playerTemp;
-    playerTemp=game.add.sprite(32, game.world.height - 150, name);
+    playerTemp=game.add.sprite(startingPosition, game.world.height - 150, name);
 
     //  Players physics properties
     game.physics.arcade.enable(playerTemp);
+
     playerTemp.body.bounce.y = 0.2;
     playerTemp.body.gravity.y = 300;
     playerTemp.body.collideWorldBounds = true;
@@ -86,8 +87,11 @@ function create() {
 
     // The players and their settings
     //player = game.add.sprite(32, game.world.height - 150, 'dude');
-    player = createPlayer('dude',[0, 1, 2, 3],[5, 6, 7, 8]);
-    player2 = createPlayer('testing',[0, 1],[2,3]);
+    var leftAnimation = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    var rightAnimation = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+
+    player = createPlayer('green',leftAnimation,rightAnimation, 50);
+    player2 = createPlayer('blue',leftAnimation,rightAnimation, game.world.width - 100);
 
 
     //  Finally some stars to collect
@@ -146,7 +150,7 @@ function update() {
     {
         //  Move to the left
         player.body.velocity.x = -150;
-
+        
         player.animations.play('left');
     }
     else if (cursors.right.isDown)
