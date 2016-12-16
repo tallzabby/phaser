@@ -18,14 +18,21 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
 
-    game.load.image('sky', 'assets/sky.png');
+    game.load.image('sky', 'assets/bg.png');
     game.load.image('ground', 'assets/platform.png');
+<<<<<<< HEAD
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     game.load.spritesheet('wiz', 'assets/testing.png', 34, 34);
     for (var i = 0; i < 24; i++)
     {
         game.load.image('star'+i, 'assets/star.png');
     }
+=======
+    game.load.image('star', 'assets/star.png');
+    game.load.spritesheet('green', 'assets/green.png', 36, 49);
+    game.load.spritesheet('blue', 'assets/blue.png', 36.5, 49);
+
+>>>>>>> 20462de09a15c989635f65cbdbb85dc509b2af3f
 
 }
 
@@ -38,6 +45,7 @@ var stars;
 var score = 0;
 var scoreText;
 
+<<<<<<< HEAD
 
 
 function createPlayer(name,arrayleft,arrayright,x,playerTemp) {
@@ -50,6 +58,16 @@ function createPlayer(name,arrayleft,arrayright,x,playerTemp) {
     }
 
 
+=======
+function createPlayer(name,arrayleft,arrayright, startingPosition) {
+    //  Our two animations, walking left and right.
+    var playerTemp;
+    playerTemp=game.add.sprite(startingPosition, game.world.height - 150, name);
+
+    //  Players physics properties
+    game.physics.arcade.enable(playerTemp);
+
+>>>>>>> 20462de09a15c989635f65cbdbb85dc509b2af3f
     playerTemp.body.bounce.y = 0.2;
     playerTemp.body.gravity.y = 300;
     playerTemp.checkWorldBounds = true;
@@ -226,8 +244,17 @@ function create() {
 
     // The players and their settings
     //player = game.add.sprite(32, game.world.height - 150, 'dude');
+<<<<<<< HEAD
     player = createPlayer('dude',[0, 1, 2, 3],[5, 6, 7, 8],35);
     player2 = createPlayer('wiz',[0, 1],[2,3],120);
+=======
+    var leftAnimation = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    var rightAnimation = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+
+    player = createPlayer('green',leftAnimation,rightAnimation, 50);
+    player2 = createPlayer('blue',leftAnimation,rightAnimation, game.world.width - 100);
+
+>>>>>>> 20462de09a15c989635f65cbdbb85dc509b2af3f
 
     //  Finally some stars to collect
     stars = game.add.group();
@@ -285,12 +312,26 @@ function update() {
     //  Reset the players velocity (movement)
 
 
+<<<<<<< HEAD
     updateStars();
 
     player = updatePlayer(player,arrowKeys);
     player2 = updatePlayer(player2,wasd);
     scoreText.text = 'P1 Lives: ' + player.lives;
     score2Text.text = 'P2 Lives: ' + player2.lives;
+=======
+    if (cursors.left.isDown)
+    {
+        //  Move to the left
+        player.body.velocity.x = -150;
+        
+        player.animations.play('left');
+    }
+    else if (cursors.right.isDown)
+    {
+        //  Move to the right
+        player.body.velocity.x = 150;
+>>>>>>> 20462de09a15c989635f65cbdbb85dc509b2af3f
 
 }
 
